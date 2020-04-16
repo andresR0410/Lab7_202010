@@ -26,6 +26,7 @@ from ADT import graph as g
 from ADT import map as map
 from ADT import list as lt
 from DataStructures import listiterator as it
+from DataStructures import dfs as df
 from datetime import datetime
 
 """
@@ -74,7 +75,23 @@ def countConnectedComponents (catalog):
     """
     Retorna la cantidad de componentes conectados del grafo de revisiones
     """
-    pass
+    counter=0
+    vs=catalog["reviewGraph"]["vertices"]
+    "vs_list=map.keySet(vs)
+    vs_iter=it.newIterator(vs_list)
+    visitedMap=map.newMap(capacity, prime, "PROBING",compareByKey)"
+    g.edges(vs)
+    while it.hasNext(vs_iter):
+        v=it.next(vs_iter) 
+        dfsI=df.newDFS(vs,v)
+        visitedMapI=dfsI["visitedMap"]
+        
+        else:
+            map.add(visitedMap, visitedMapI)
+        if v not in visitedMap:
+            df.dfs(catalog)
+            counter+=1
+    return counter
 
 
 
