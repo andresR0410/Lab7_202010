@@ -69,7 +69,9 @@ def countNodesEdges (catalog):
 
     return nodes,edges
 
-
+def countCC(catalog):
+    
+    pass
 
 
 # Funciones de comparacion

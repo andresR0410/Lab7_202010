@@ -2,11 +2,15 @@ import config
 import math
 from DataStructures import adjlist as g
 from DataStructures import listiterator as it
+from DataStructures import graphstructure as gs
 from ADT import queue as q
 from ADT import map as map
 from DataStructures import edge as e
 from ADT import stack as stk
 from ADT import list as lt
+
+
+
 
 def newDFS(graph, source):
     """
@@ -29,6 +33,31 @@ def dfs (search, v):
             map.put(search['visitedMap'], w, {'marked':True, 'edgeTo':v})
             dfs(search, w)
 
+def dfscc (search, v, visited):
+    adjs = g.adjacents(search['graph'],v)
+    adjs_iter = it.newIterator (adjs)
+    while (it.hasNext(adjs_iter)):
+        w = it.next (adjs_iter)
+        visited_w = map.get(search['visitedMap'], w)
+        if visited_w == None:
+            map.put(visited, w, True)
+            map.put(search['visitedMap'], w, {'marked':True, 'edgeTo':v})
+            dfs(search, w)
+
+def countCC (graph):
+    counter = 0
+    prime = nextPrime (g.numVertex(graph) * 2)
+    listVert = gs.vertices(graph)
+    visitedMap = map.newMap(capacity=prime, maptype='PROBING', comparefunction=graph['comparefunction'])
+    vert_iter = it.newIterator(listVert)
+    while (it.hasNext(vert_iter)):
+        v = it.next (vert_iter)
+        if not map.get(visitedMap, v):
+            map.put(visitedMap, v, True)
+            search = newDFS(graph, v)
+            dfscc(search, v, visitedMap)
+            counter+=1
+    return counter
 
 def hasPathTo(search, v):
     element = map.get(search['visitedMap'],v)
@@ -48,3 +77,50 @@ def pathTo(search, v):
     stk.push(path,search['s'])
     return path
 
+
+
+# Function to return the smallest  
+# prime number greater than N 
+# # This code is contributed by Sanjit_Prasad  
+
+def isPrime(n): 
+      
+    # Corner cases  
+    if(n <= 1): 
+        return False
+    if(n <= 3): 
+        return True
+      
+    # This is checked so that we can skip  
+    # middle five numbers in below loop  
+    if(n % 2 == 0 or n % 3 == 0): 
+        return False
+      
+    for i in range(5,int(math.sqrt(n) + 1), 6):  
+        if(n % i == 0 or n % (i + 2) == 0): 
+            return False
+      
+    return True
+
+def nextPrime(N): 
+  
+    # Base case  
+    if (N <= 1): 
+        return 2
+  
+    prime = N 
+    found = False
+  
+    # Loop continuously until isPrime returns  
+    # True for a number greater than n  
+    while(not found): 
+        prime = prime + 1
+  
+        if(isPrime(prime) == True): 
+            found = True
+  
+    return prime 
+
+
+def comparenames (searchname, element):
+    return (searchname == element['key'])

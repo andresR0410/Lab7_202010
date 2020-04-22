@@ -61,14 +61,20 @@ def loadBookReviews (catalog, sep=';'):
     dialect.delimiter=sep
     with open(nodesfile, encoding="utf-8-sig") as csvfile:
         spamreader = csv.DictReader(csvfile, dialect=dialect)
+        t2_start = process_time() #tiempo inicial
         for row in spamreader:
             model.addNode(catalog, row)
+        t2_stop = process_time() #tiempo final
     with open(edgesfile, encoding="utf-8-sig") as csvfile:
         spamreader = csv.DictReader(csvfile, dialect=dialect)
+        t3_start = process_time() #tiempo inicial
         for row in spamreader:
             model.addEdge(catalog, row)
+        t3_stop = process_time() #tiempo final
     t1_stop = process_time() #tiempo final
-    print("Tiempo de ejecución carga de grafo de revisiones de libros:",t1_stop-t1_start," segundos")   
+    print("Tiempo de ejecución carga de grafo de vuelos",t1_stop-t1_start," segundos\n"
+    "Tiempo de carga de nodos",t2_stop-t2_start,"segundos\n"
+    "Tiempo de carga de arcos",t3_stop-t3_start,"segundos")   
 
 
             
@@ -96,13 +102,13 @@ def countNodesEdges(catalog):
     t1_start = process_time() #tiempo inicial
     nodes, edges = model.countNodesEdges(catalog)
     t1_stop = process_time() #tiempo final
-    print("Tiempo de ejecución de conteo de componentes conectados:",t1_stop-t1_start," segundos")
+    print("Tiempo de ejecución de conteo de componentes:",t1_stop-t1_start," segundos")
     return nodes, edges
 
 
-def countConnectedComponents(catalog):
+def countCC(catalog):
     t1_start = process_time() #tiempo inicial
-    ccs = model.countConnectedComponents(catalog) 
+    ccs = model.countCC(catalog) 
     t1_stop = process_time() #tiempo final
     print("Tiempo de ejecución de conteo de componentes conectados:",t1_stop-t1_start," segundos")
     return ccs

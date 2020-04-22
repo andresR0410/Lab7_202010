@@ -75,7 +75,7 @@ def main():
             nodes,edges = controller.countNodesEdges(catalog) 
             print("El grafo tiene: ", nodes," nodos y", edges," enlaces")
         elif int(inputs[0])==3:
-            ccs = controller.countConnectedComponents(catalog)
+            ccs = controller.countCC(catalog)
             print("El grafo tiene :", ccs, 'componentes conectados')
         else:
             sys.exit(0)

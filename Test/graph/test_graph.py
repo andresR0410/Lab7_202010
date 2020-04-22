@@ -106,7 +106,7 @@ class GraphTest (unittest.TestCase):
         g.addEdge(graph, 'Antonio', 'Laura')
         g.addEdge(graph, 'Camila', 'Lina')
 
-        cc=dfs.countConnectedComponents(graph)
+        cc=dfs.countCC(graph)
         self.assertEqual (cc, 3)
 
 
