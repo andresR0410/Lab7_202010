@@ -26,7 +26,7 @@ from ADT import graph as g
 from ADT import map as map
 from ADT import list as lt
 from DataStructures import listiterator as it
-from DataStructures import dfs as df
+from DataStructures import dfs
 from datetime import datetime
 
 """
@@ -71,7 +71,7 @@ def countNodesEdges (catalog):
 
 def countCC(catalog):
     
-    pass
+    return dfs.countCC(catalog['Graph'])
 
 
 # Funciones de comparacion
