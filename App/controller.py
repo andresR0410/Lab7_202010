@@ -55,18 +55,23 @@ def loadBookReviews (catalog, sep=';'):
     referencia al libro que se esta procesando.
     """
     t1_start = process_time() #tiempo inicial
-    booksfile = cf.data_dir + 'GoodReads/book_reviews.csv'
+    nodesfile = cf.data_dir + 'flights_nodes.csv'
+    edgesfile = cf.data_dir + 'flights_edges.csv'
     dialect = csv.excel()
     dialect.delimiter=sep
-    with open(booksfile, encoding="utf-8-sig") as csvfile:
+    with open(nodesfile, encoding="utf-8-sig") as csvfile:
         spamreader = csv.DictReader(csvfile, dialect=dialect)
         for row in spamreader:
-            model.addReviewNode(catalog, row)
-            model.addReviewEdge(catalog, row)
+            model.addNode(catalog, row)
+    with open(edgesfile, encoding="utf-8-sig") as csvfile:
+        spamreader = csv.DictReader(csvfile, dialect=dialect)
+        for row in spamreader:
+            model.addEdge(catalog, row)
     t1_stop = process_time() #tiempo final
     print("Tiempo de ejecución carga de grafo de revisiones de libros:",t1_stop-t1_start," segundos")   
 
 
+            
 
 def initCatalog ():
     """

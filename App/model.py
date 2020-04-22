@@ -41,57 +41,33 @@ def newCatalog():
     """
     Inicializa el catálogo y retorna el catalogo inicializado.
     """
-    rgraph = g.newGraph(5500,compareByKey)
-    catalog = {'reviewGraph':rgraph}    
+    graph = g.newGraph(111353 ,compareByKey)
+    catalog = {'Graph':graph}    
     return catalog
 
 
-def addReviewNode (catalog, row):
+def addNode (catalog, row):
     """
     Adiciona un nodo para almacenar un libro o usuario 
     """
-    if not g.containsVertex(catalog['reviewGraph'], row['book_id']):
-        g.insertVertex (catalog['reviewGraph'], row['book_id'])
-    if not g.containsVertex(catalog['reviewGraph'], row['user_id']):
-        g.insertVertex (catalog['reviewGraph'], row['user_id'])
+    if not g.containsVertex(catalog['Graph'], row['VERTEX']):
+        g.insertVertex (catalog['Graph'], row['VERTEX'])
 
-def addReviewEdge (catalog, row):
+def addEdge (catalog, row):
     """
     Adiciona un enlace para almacenar una revisión
     """
-    g.addEdge (catalog['reviewGraph'], row['book_id'], row['user_id'], row['rating'])
+    g.addEdge (catalog['Graph'], row['SOURCE'], row['DEST'], row['ARRIVAL_DELAY'])
 
 
 def countNodesEdges (catalog):
     """
     Retorna la cantidad de nodos y enlaces del grafo de revisiones
     """
-    nodes = g.numVertex(catalog['reviewGraph'])
-    edges = g.numEdges(catalog['reviewGraph'])
+    nodes = g.numVertex(catalog['Graph'])
+    edges = g.numEdges(catalog['Graph'])
 
     return nodes,edges
-
-def countConnectedComponents (catalog):
-    """
-    Retorna la cantidad de componentes conectados del grafo de revisiones
-    """
-    counter=0
-    vs=catalog["reviewGraph"]["vertices"]
-    "vs_list=map.keySet(vs)
-    vs_iter=it.newIterator(vs_list)
-    visitedMap=map.newMap(capacity, prime, "PROBING",compareByKey)"
-    g.edges(vs)
-    while it.hasNext(vs_iter):
-        v=it.next(vs_iter) 
-        dfsI=df.newDFS(vs,v)
-        visitedMapI=dfsI["visitedMap"]
-        
-        else:
-            map.add(visitedMap, visitedMapI)
-        if v not in visitedMap:
-            df.dfs(catalog)
-            counter+=1
-    return counter
 
 
 

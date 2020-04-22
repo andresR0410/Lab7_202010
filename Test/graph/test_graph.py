@@ -2,6 +2,7 @@ import unittest
 import config
 from DataStructures import edge as e
 from DataStructures import listiterator as it
+from DataStructures import dfs
 from ADT import graph as g
 from ADT import queue as q
 from ADT import list as lt
@@ -87,7 +88,26 @@ class GraphTest (unittest.TestCase):
 
         lst = g.adjacents (graph, 'Bogota')
         self.assertEqual (lt.size (lst), 4)
+
+    def test_connectedcomponents (self):
+        
+        graph = g.newGraph(7,self.comparenames)
+
+        g.insertVertex(graph, 'Laura')
+        g.insertVertex(graph, 'Eduardo')
+        g.insertVertex(graph, 'Andres')
+        g.insertVertex(graph, 'Camila')
+        g.insertVertex(graph, 'Antonio')
+        g.insertVertex(graph, 'Luis')
+        g.insertVertex(graph, 'Lina')
     
+        g.addEdge(graph, 'Laura', 'Luis')
+        g.addEdge(graph, 'Eduardo', 'Laura')
+        g.addEdge(graph, 'Antonio', 'Laura')
+        g.addEdge(graph, 'Camila', 'Lina')
+
+        cc=dfs.countConnectedComponents(graph)
+        self.assertEqual (cc, 3)
 
 
 if __name__ == "__main__":
