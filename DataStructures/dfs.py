@@ -33,29 +33,18 @@ def dfs (search, v):
             map.put(search['visitedMap'], w, {'marked':True, 'edgeTo':v})
             dfs(search, w)
 
-def dfscc (search, v, visited):
-    adjs = g.adjacents(search['graph'],v)
-    adjs_iter = it.newIterator (adjs)
-    while (it.hasNext(adjs_iter)):
-        w = it.next (adjs_iter)
-        visited_w = map.get(search['visitedMap'], w)
-        if visited_w == None:
-            map.put(visited, w, True)
-            map.put(search['visitedMap'], w, {'marked':True, 'edgeTo':v})
-            dfs(search, w)
 
 def countCC (graph):
     counter = 0
-    prime = nextPrime (g.numVertex(graph) * 2)
     listVert = gs.vertices(graph)
-    visitedMap = map.newMap(capacity=prime, maptype='PROBING', comparefunction=graph['comparefunction'])
+    source = lt.firstElement(listVert)
+    search = newDFS(graph, source)
     vert_iter = it.newIterator(listVert)
     while (it.hasNext(vert_iter)):
         v = it.next (vert_iter)
-        if not map.get(visitedMap, v):
-            map.put(visitedMap, v, True)
-            search = newDFS(graph, v)
-            dfscc(search, v, visitedMap)
+        if not map.get(search['visitedMap'], v):
+            map.put(search['visitedMap'], v, True)
+            dfs(search, v)
             counter+=1
     return counter
 
