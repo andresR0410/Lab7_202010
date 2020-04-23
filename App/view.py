@@ -55,7 +55,7 @@ def initCatalog ():
 
 def loadData (catalog):
     """
-    Carga los libros en la estructura de datos
+    Carga los datos en la estructura de datos
     """
     controller.loadData(catalog)
 
