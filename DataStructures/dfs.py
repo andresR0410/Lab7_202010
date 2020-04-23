@@ -35,17 +35,19 @@ def dfs (search, v):
 
 
 def countCC (graph):
-    counter = 1
+    counter = 0
     listVert = gs.vertices(graph)
-    source = lt.firstElement(listVert)
-    search = newDFS(graph, source)
-    vert_iter = it.newIterator(listVert)
-    while (it.hasNext(vert_iter)):
-        v = it.next (vert_iter)
-        if not map.get(search['visitedMap'], v):
-            map.put(search['visitedMap'], v, {'marked':True,'edgeTo':None})
-            dfs(search, v)
-            counter+=1
+    if not lt.isEmpty(listVert):
+        counter = 1
+        source = lt.firstElement(listVert)
+        search = newDFS(graph, source)
+        vert_iter = it.newIterator(listVert)
+        while (it.hasNext(vert_iter)):
+            v = it.next (vert_iter)
+            if not map.get(search['visitedMap'], v):
+                map.put(search['visitedMap'], v, {'marked':True,'edgeTo':None})
+                dfs(search, v)
+                counter+=1
     return counter
 
 def hasPathTo(search, v):

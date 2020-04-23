@@ -118,5 +118,12 @@ class GraphTest (unittest.TestCase):
         cc=dfs.countCC(graph)
         self.assertEqual (cc, 1)
 
+    def test_connectedcomponents0 (self):
+        
+        graph = g.newGraph(1,self.comparenames)
+
+        cc=dfs.countCC(graph)
+        self.assertEqual (cc, 0)
+
 if __name__ == "__main__":
     unittest.main()
