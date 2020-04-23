@@ -35,7 +35,7 @@ def dfs (search, v):
 
 
 def countCC (graph):
-    counter = 0
+    counter = 1
     listVert = gs.vertices(graph)
     source = lt.firstElement(listVert)
     search = newDFS(graph, source)
@@ -43,7 +43,7 @@ def countCC (graph):
     while (it.hasNext(vert_iter)):
         v = it.next (vert_iter)
         if not map.get(search['visitedMap'], v):
-            map.put(search['visitedMap'], v, True)
+            map.put(search['visitedMap'], v, {'marked':True,'edgeTo':None})
             dfs(search, v)
             counter+=1
     return counter
